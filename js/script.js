@@ -28,19 +28,53 @@ function operate(x, y, z) {
 };
 
 let display = document.querySelector("#display");
-let displayValue = [display.value];
+let numbers = [];
+let operators = [];
+let consDisplay = ''
 
-document.getElementById("clear").addEventListener("click", () => display.value = '');
+document.getElementById("clear").addEventListener("click", () => {
+	display.value = '';
+	numbers = [];
+	consDisplay = ''
+	
+});
 
 document.querySelectorAll(".numbers").forEach(node => node.addEventListener ("click", function(e) {
 	display.value += e.target.id;
+	numbers += e.target.id;
+	consDisplay += e.target.id;
+	console.log(consDisplay)
 }));
 document.querySelectorAll(".operators").forEach(node => node.addEventListener ("click", function(e) {
-	display.value += e.target.id;
-}));
 
-document.getElementById("equals").addEventListener("click",())
-console.log(displayValue);
+	const lastChar = consDisplay.charAt(consDisplay.length -1);
+	const firstChar = consDisplay.charAt(0);
+   		if(lastChar === "*" ||
+     	lastChar === "/" ||
+     	lastChar === "+" ||
+     	lastChar === "-") {
+		return
+		} else if (firstChar === '') {
+			return
+		}	{
+	display.value += e.target.id;
+	operators.push(e.target.id);
+	consDisplay += e.target.id;
+	console.log(operators)
+	console.log(consDisplay)
+	
+
+	
+	}}));
+
+
+// function equals () {
+// const calculation = numbers.reduce(total, no => {
+// 	return total + (no)
+
+
+// });
+// document.getElementById("equals").addEventListener("click",())
 	
 
 

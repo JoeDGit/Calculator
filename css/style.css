@@ -1,6 +1,5 @@
 body {
     background-color: #d6d7dc;
-    overflow: hidden;
 }
 button {
     width: 100px;
@@ -15,32 +14,38 @@ h1 {
 }
 
 #displayContain {
-    z-index: 1;
+    height: 308px;
+    width: 100px;
     position: relative;
     top: 153px;
     left: 753px;
 
 }
 #display {
-
+    z-index: 1;
     position: relative;
     width: 308px;
     height: 100px;   
     font-size: 32px;
+    text-align: right;
 }
 
 #calcContain {
     position: relative;
     left: 750px;
-    top: 50px;
-  
+    bottom: 157px;
+    width: 522px; 
   
 }
 .numbers {
     background-color: #b1c5d4;
 }
-#operators {
+.operators {
     background-color: #71879a;
+}
+#equals{
+    background-color: #d8b9aa;
+
 }
 #clear {
     background-color: #d8b9aa;

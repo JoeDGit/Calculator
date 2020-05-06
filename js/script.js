@@ -37,6 +37,9 @@ let status = {
 	total: 0,
 	temp: 0,
 	tempA: 0,
+	operand1: '',
+	operand2: '',
+	operand3: '',
 
 };
 
@@ -50,6 +53,7 @@ function clear() {
 	operators = [];
 	const miniUpdate = document.getElementById("miniDisplay").textContent = '';
 }
+
 
 document.getElementById("clear").addEventListener("click", () => {
 	clear();
@@ -87,8 +91,21 @@ document.querySelectorAll(".operators").forEach(node => node.addEventListener ("
 			const splitA = consDisplay.split(/([\+\-\*\/])/g);
 				operA += (splitA[0]);
 				operB += (splitA[2]);
-			let operand1 = parseInt(operA);
-			let operand2 = parseInt(operB);	
+				if (operA.includes(".") && operB.includes(!".") ) {
+					status.operand1 = parseFloat(operA)
+					status.operand2 = parseInt(operB);
+				} else if (operB.includes(".") && operA.includes(!".")) {
+					status.operand1 = parseInt(operA);
+					status.operand2 = parseFloat(operB)
+				} else if (operA.includes(".") && operB.includes(".")) {
+					status.operand1 = parseFloat(operA)
+					status.operand2 = parseFloat(operB)
+				} else {
+					status.operand1 = parseInt(operA);
+					status.operand2 = parseInt(operB);
+				}
+			let operand1 = status.operand1;
+			let operand2 = status.operand2;
 			status.temp = operate(operand1, operators[0], operand2);
 			status.total = status.total + status.temp;
 			display.value = status.total;
@@ -99,7 +116,12 @@ document.querySelectorAll(".operators").forEach(node => node.addEventListener ("
 		} else if (status.awaitingSecondOperand === true && operators.length > 1 ) {								
 			const splitB = consDisplay.split(/([\+\-\*\/])/g);			
 			let operC = splitB[splitB.length-1];		
-			let operand3 = parseInt(operC);				
+			if (operC.includes(".")) {
+				status.operand3 = parseFloat(operC);
+			} else {
+				status.operand3 = parseInt(operC);
+			}
+			let operand3 = status.operand3;						
 			console.log(splitB)				
 			status.tempA = operate(status.total, operators[operators.length-1], operand3);
 				
@@ -113,8 +135,9 @@ document.querySelectorAll(".operators").forEach(node => node.addEventListener ("
 			display.value += e.target.id;
 			operators.push(e.target.id);
 			consDisplay += e.target.id;			
-			status.awaitingSecondOperand = !status.awaitingSecondOperand;	
+			status.awaitingSecondOperand = !status.awaitingSecondOperand;			
 		}}));
+
 
 	document.getElementById("equals").addEventListener("click", () => {
 		const lastChar = consDisplay.charAt(consDisplay.length -1);
@@ -134,12 +157,28 @@ document.querySelectorAll(".operators").forEach(node => node.addEventListener ("
 	
 			} else if (status.awaitingSecondOperand === true && operators.length <=1 ) {			
 				let operA = '';			
-				let operB = '';						
+				let operB = '';								
 				const splitA = consDisplay.split(/([\+\-\*\/])/g);
 					operA += (splitA[0]);
 					operB += (splitA[2]);
-				let operand1 = parseInt(operA);
-				let operand2 = parseInt(operB);	
+				
+				if (operA.includes(".") && operB.includes(!".") ) {
+					status.operand1 = parseFloat(operA)
+					status.operand2 = parseInt(operB);
+				} else if (operB.includes(".") && operA.includes(!".")) {
+					status.operand1 = parseInt(operA);
+					status.operand2 = parseFloat(operB)
+				} else if (operA.includes(".") && operB.includes(".")) {
+					status.operand1 = parseFloat(operA)
+					status.operand2 = parseFloat(operB)
+				} else {
+					status.operand1 = parseInt(operA);
+					status.operand2 = parseInt(operB);
+				}
+				let operand1 = status.operand1;
+				console.log(operand1)
+				let operand2 = status.operand2;
+				console.log(operand2)
 				status.temp = operate(operand1, operators[0], operand2);
 				status.total = status.total + status.temp;
 				display.value = status.total;
@@ -149,8 +188,13 @@ document.querySelectorAll(".operators").forEach(node => node.addEventListener ("
 	
 			} else if (status.awaitingSecondOperand === true && operators.length > 1 ) {								
 				const splitB = consDisplay.split(/([\+\-\*\/])/g);			
-				let operC = splitB[splitB.length-1];		
-				let operand3 = parseInt(operC);				
+				let operC = splitB[splitB.length-1];
+				if (operC.includes(".")) {
+					status.operand3 = parseFloat(operC);
+				} else {
+					status.operand3 = parseInt(operC);
+				}
+				let operand3 = status.operand3;				
 				console.log(splitB)				
 				status.tempA = operate(status.total, operators[operators.length-1], operand3);
 					
@@ -160,4 +204,12 @@ document.querySelectorAll(".operators").forEach(node => node.addEventListener ("
 				status.awaitingSecondOperand = !status.awaitingSecondOperand;
 			}	});
 
-			
+	document.getElementById("decimal").addEventListener("click", () => {
+				if (consDisplay.charAt(consDisplay.length -1) === ".") {
+					return
+				} {
+				consDisplay += '.';	
+				display.value += '.';
+	}});
+
+

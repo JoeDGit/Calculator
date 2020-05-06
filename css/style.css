@@ -12,6 +12,7 @@ button {
     border-radius: 50px;
     border: 5px solid white;
     border-style: double;
+    justify-content: center;
 
     
 }
@@ -64,6 +65,7 @@ h1 {
 }
 .operators {
     background-color: #71879a;
+    font-size: 40px;
 }
 #equals{
     background-color: #d8b9aa;

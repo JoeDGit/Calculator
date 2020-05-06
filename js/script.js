@@ -30,7 +30,7 @@ function operate(x, y, z) {
 let display = document.querySelector("#display");
 let numbers = [];
 let operators = [];
-let consDisplay = ''
+let consDisplay = '';
 let status = {
 
 	awaitingSecondOperand: false,
@@ -51,7 +51,7 @@ function clear() {
 	status.total = 0;
 	status.awaitingSecondOperand = false;
 	operators = [];
-	const miniUpdate = document.getElementById("miniDisplay").textContent = '';
+	
 }
 
 
@@ -65,14 +65,14 @@ document.querySelectorAll(".numbers").forEach(node => node.addEventListener ("cl
 	display.value += e.target.id;
 	numbers.push(floatNo);
 	consDisplay += e.target.id;	
-	const miniUpdate = document.getElementById("miniDisplay").textContent = consDisplay;
+	
 }));
 document.querySelectorAll(".operators").forEach(node => node.addEventListener ("click", function(e) {
 
 	const lastChar = consDisplay.charAt(consDisplay.length -1);
 	const secondChar = consDisplay.charAt(1);
 	const firstChar = consDisplay.charAt(0);
-	const miniUpdate = document.getElementById("miniDisplay").textContent = consDisplay;
+	
    		if(lastChar === "*" ||
      	lastChar === "/" ||
      	lastChar === "+" ||
@@ -112,6 +112,7 @@ document.querySelectorAll(".operators").forEach(node => node.addEventListener ("
 			status.temp = 0;
 			status.awaitingSecondOperand = !status.awaitingSecondOperand	
 			console.log(splitA)	
+			
 
 		} else if (status.awaitingSecondOperand === true && operators.length > 1 ) {								
 			const splitB = consDisplay.split(/([\+\-\*\/])/g);			
@@ -129,9 +130,11 @@ document.querySelectorAll(".operators").forEach(node => node.addEventListener ("
 			display.value = status.total;
 			status.tempA = 0;
 			status.awaitingSecondOperand = !status.awaitingSecondOperand;
+			
 		}	
 		
-		{		
+		{	
+				
 			display.value += e.target.id;
 			operators.push(e.target.id);
 			consDisplay += e.target.id;			
@@ -211,5 +214,27 @@ document.querySelectorAll(".operators").forEach(node => node.addEventListener ("
 				consDisplay += '.';	
 				display.value += '.';
 	}});
+	document.getElementById("backSpace").addEventListener("click", () => {
+				
+				let lastChar = consDisplay.charAt(consDisplay.length -1)
+				if ( lastChar === (/([\+\-\*\/])/g)) {
+					operators.pop();
+					consDisplay = consDisplay.substring(0, consDisplay.length -1);
+					display.value = display.value.substring(0, display.value.length -1);
+					console.log(display.value)
+					console.log('oppy', consDisplay)
+					status.awaitingSecondOperand = !status.awaitingSecondOperand
+					
+				} {
+					consDisplay = consDisplay.substring(0, consDisplay.length -1);
+					display.value = display.value.substring(0, display.value.length -1);
+					console.log(display.value)
+					console.log('default', consDisplay)
+					
+				}		
+		
+		
+
+	})
 
 
